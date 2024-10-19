@@ -13,10 +13,11 @@ Start the application:
 Use the body format:
 ```
 {
-    "AssetSymbol": "BRL",
-    "AssetTypeID": 8,
-    "Quantity": 1,
-    "PricePerUnit": 500,
+    "AssetName": "Banco do Brasil",
+    "AssetSymbol": "BBSA3",
+    "AssetTypeID": 2,
+    "Quantity": 100,
+    "PricePerUnit": 35.12,
     "ExchangeRateUSD_BRL": 5.6,
     "TransactionType": "Buy"
 }
