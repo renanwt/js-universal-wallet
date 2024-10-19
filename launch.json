@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "npm",
+        "request": "start",
+        "name": "Launch Program",
+        "skipFiles": ["<node_internals>/**"],
+        "program": "./app.js", 
+        "env": {
+          "NODE_ENV": "development"
+        }
+      }
+    ]
+  }
+  
