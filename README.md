@@ -1,3 +1,36 @@
->> node initDb.js to start DB
+# Welcome to the Universal Wallet App
 
->> npm start
+Start the Database (Sqlite):
+> node initDb.js to start DB
+
+Start the application:
+> npm start
+
+
+## Buy an asset 
+> http://localhost:3000/buy-asset 
+
+Use the body format:
+```
+{
+    "AssetSymbol": "BRL",
+    "AssetTypeID": 8,
+    "Quantity": 1,
+    "PricePerUnit": 500,
+    "ExchangeRateUSD_BRL": 5.6,
+    "TransactionType": "Buy"
+}
+```
+
+## Get all assets
+> http://localhost:3000/assets
+
+
+## Get all positions / Top losses / Top profits / Distribution
+> http://localhost:3000/position-comparison
+
+## Freeze Assets Position in current date
+> http://localhost:3000/asset-status/record
+
+## Get positons in a specific date
+> http://localhost:3000/asset-status?date=yyyy-mm-dd
