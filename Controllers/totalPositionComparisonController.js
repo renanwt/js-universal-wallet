@@ -38,16 +38,15 @@ module.exports = (db) => {
             // Iterate over each asset
             for (const asset of assets) {
                 let assetValue = 0;
-                let avgValue = asset.AmountInWallet * parseFloat(asset.AvgPrice);                
-        
-                if (asset.AssetTypeID === 1) {
+                let avgValue = asset.AmountInWallet * parseFloat(asset.AvgPrice);
+                if (asset.AssetTypeID === 1 & asset.AmountInWallet !== 0) {
                     const quote = await yahooFinance.quote(asset.AssetSymbol + "-USD");
                     const { regularMarketPrice } = quote;
                     assetValue = asset.AmountInWallet * regularMarketPrice * exchangeRateUSD_BRL;
                     avgValue *= exchangeRateUSD_BRL;
                     totalValueBRL += assetValue;
                     totalCryptoValue += assetValue;
-                } else if ([2, 3, 7].includes(asset.AssetTypeID)) {
+                } else if ([2, 3, 7].includes(asset.AssetTypeID) & asset.AmountInWallet !== 0) {
                     const quote = await yahooFinance.quote(asset.AssetSymbol + ".SA");
                     const { regularMarketPrice, currency } = quote;
                     assetValue = asset.AmountInWallet * regularMarketPrice;
@@ -65,7 +64,7 @@ module.exports = (db) => {
                     } else if (asset.AssetTypeID === 7) {
                         totalBRETFValue += assetValue;
                     }
-                } else if ([4, 5, 6].includes(asset.AssetTypeID)) {
+                } else if ([4, 5, 6].includes(asset.AssetTypeID) & asset.AmountInWallet !== 0) {
                     const quote = await yahooFinance.quote(asset.AssetSymbol);
                     const { regularMarketPrice } = quote;
                     assetValue = asset.AmountInWallet * regularMarketPrice * exchangeRateUSD_BRL;
@@ -79,7 +78,7 @@ module.exports = (db) => {
                         totalUSETFValue += assetValue;
                     }
 
-                } else if ([8].includes(asset.AssetTypeID)) {
+                } else if ([8].includes(asset.AssetTypeID) & asset.AmountInWallet !== 0) {
                     assetValue = parseFloat(asset.AmountInWallet);
                     totalValueBRL += assetValue;
                     totalCashValue += assetValue
@@ -88,13 +87,13 @@ module.exports = (db) => {
                 assetValues[asset.AssetSymbol] = assetValue;
         
                 const profitPercentage = ((assetValue - avgValue) / avgValue) * 100;
-                if (profitPercentage >= 0) {
+                if (profitPercentage >= 0  & asset.AmountInWallet !== 0) {
                     profitPercentages.push({
                     ticker: asset.AssetSymbol,
                     value: assetValue.toFixed(2),
                     profitPercentage: profitPercentage.toFixed(2)
                     });
-                } else {
+                } else if (asset.AmountInWallet !== 0) {
                     lossPercentages.push({
                     ticker: asset.AssetSymbol,
                     value: assetValue.toFixed(2),
@@ -126,7 +125,7 @@ module.exports = (db) => {
                 BR_etfs: { total: parseFloat(totalBRETFValue.toFixed(2)), percentage: ((totalBRETFValue / totalValueBRL) * 100).toFixed(2) + '%'},
                 stocks: { total: parseFloat(totalUSStockValue.toFixed(2)), percentage: ((totalUSStockValue / totalValueBRL) * 100).toFixed(2) + '%'},
                 reits: { total: parseFloat(totalUSReitValue.toFixed(2)), percentage: ((totalUSReitValue / totalValueBRL) * 100).toFixed(2) + '%'},
-                US_etfs: { total: parseFloat(totalUSStockValue.toFixed(2)), percentage: ((totalUSStockValue / totalValueBRL) * 100).toFixed(2) + '%'},
+                US_etfs: { total: parseFloat(totalUSETFValue.toFixed(2)), percentage: ((totalUSETFValue / totalValueBRL) * 100).toFixed(2) + '%'},
                 cash: { total: parseFloat(totalCashValue.toFixed(2)), percentage: ((totalCashValue / totalValueBRL) * 100).toFixed(2) + '%'},
             }
             // Convert the object to an array of key-value pairs

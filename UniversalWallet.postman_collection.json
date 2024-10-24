@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "c66c592f-6ff2-43dd-ab21-699fe6afa681",
+		"name": "UniversalWallet",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Asset Types",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/asset-types",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asset-types"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Position",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Buy Asset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AssetName\": \"ISHARE SP500CI\",\r\n  \"AssetSymbol\": \"IVVB11\",\r\n  \"AssetTypeID\": 7,\r\n  \"Quantity\": 1,\r\n  \"PricePerUnit\": 348.85,\r\n  \"ExchangeRateUSD_BRL\": 5.43,\r\n  \"TransactionType\": \"Buy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/buy-asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"buy-asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sell Asset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AssetSymbol\": \"CPLE11\",\r\n  \"Quantity\": 50,\r\n  \"PricePerUnit\": 20,\r\n  \"ExchangeRateUSD_BRL\": 5.43\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sell-asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sell-asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Assets",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/assets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"assets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Asset Status By Date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/asset-status?date=2024-10-16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asset-status"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2024-10-16"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Record Status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/asset-status/record",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"asset-status",
+						"record"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

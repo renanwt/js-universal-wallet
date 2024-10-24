@@ -4,9 +4,9 @@ const axios = require('axios');
 const yahooFinance = require('yahoo-finance2').default;
 const assetTypesController = require('./Controllers/assetTypesController');
 const buyAssetController = require('./Controllers/buyAssetController');
+const sellAssetController = require('./Controllers/sellAssetController');
 const getAssetController = require('./Controllers/getAssetController');
 const assetStatusController = require('./Controllers/assetStatusController');
-const totalPosition = require('./Controllers/totalPositionComparisonController');
 const totalPositionController = require('./Controllers/totalPositionComparisonController');
 
 const app = express();
@@ -39,6 +39,9 @@ app.use('/asset-types', assetTypesController(db));
 
 // Buy Asset endpoint
 app.use('/buy-asset', buyAssetController(db));
+
+// Sell Asset endpoint
+app.use('/sell-asset', sellAssetController(db));
 
 // Get Asset endpoint
 app.use('/assets', getAssetController(db));

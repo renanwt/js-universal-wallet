@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 
 module.exports = (db) => {
   router.post('/', (req, res) => {
-    const { AssetName, AssetSymbol, AssetTypeID, Quantity, PricePerUnit, ExchangeRateUSD_BRL, TransactionType } = req.body;
+    const { AssetName, AssetSymbol, AssetTypeID, Quantity, PricePerUnit, ExchangeRateUSD_BRL } = req.body;
 
     db.serialize(() => {
       db.run('BEGIN TRANSACTION;', (err) => {
@@ -70,7 +70,7 @@ module.exports = (db) => {
         function insertTransaction(assetID) {
           db.run(
             'INSERT INTO Transactions (AssetID, TransactionDate, Quantity, PricePerUnit, TransactionType, ExchangeRateUSD_BRL) VALUES (?, datetime("now"), ?, ?, ?, ?)',
-            [assetID, Quantity, PricePerUnit, TransactionType, ExchangeRateUSD_BRL],
+            [assetID, Quantity, PricePerUnit, "Buy", ExchangeRateUSD_BRL],
             (err) => {
               if (err) {
                 console.error(err.message);
