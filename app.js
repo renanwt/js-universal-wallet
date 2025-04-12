@@ -11,6 +11,7 @@ const totalPositionController = require('./Controllers/totalPositionComparisonCo
 const historyController = require('./Controllers/historyController');
 const cryptoConversionController = require('./Controllers/cryptoConversionController');
 const revertTransactionController = require('./Controllers/revertTransactionController');
+const getAssetTransactionsController = require('./Controllers/getAssetTransactionsController');
 
 const app = express();
 const dbPath = 'database.sqlite'; // SQLite database file
@@ -57,6 +58,9 @@ app.use('/position-comparison', totalPositionController(db));
 
 // Get History Patrimony By Date
 app.use('/history', historyController(db));
+
+// Get transactions for a specific asset
+app.use('/transactions', getAssetTransactionsController(db));
 
 //
 app.use('/api/convert', cryptoConversionController(db));

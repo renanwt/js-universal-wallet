@@ -31,6 +31,7 @@ CREATE TABLE `Transactions` (
   `PricePerUnit` REAL NOT NULL,
   `TransactionType` TEXT NOT NULL,
   `ExchangeRateUSD_BRL` REAL NOT NULL,
+  `Info` TEXT,
   FOREIGN KEY (`AssetID`) REFERENCES `Assets` (`AssetID`)
 );
 

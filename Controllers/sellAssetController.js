@@ -4,7 +4,7 @@ const sqlite3 = require('sqlite3').verbose();
 
 module.exports = (db) => {
   router.post('/', (req, res) => {
-    const { AssetSymbol, Quantity, PricePerUnit, ExchangeRateUSD_BRL } = req.body;
+    const { AssetSymbol, Quantity, PricePerUnit, ExchangeRateUSD_BRL, Info } = req.body;
 
     db.serialize(() => {
       db.run('BEGIN TRANSACTION;', (err) => {
@@ -34,7 +34,7 @@ module.exports = (db) => {
             let newAmountInWallet = AmountInWallet - Quantity;
             let newAvgPrice = existingAsset.AvgPrice; // Price does not change on sell
 
-            if (existingAsset.AssetTypeID === 8 ){
+            if (existingAsset.AssetTypeID === 8) {
               newAmountInWallet = AmountInWallet - PricePerUnit;
               newAvgPrice = 1;
             }
@@ -58,9 +58,11 @@ module.exports = (db) => {
         });
 
         function insertTransaction(assetID) {
+          const insertQuery = 'INSERT INTO Transactions (AssetID, TransactionDate, Quantity, PricePerUnit, TransactionType, ExchangeRateUSD_BRL, Info) VALUES (?, datetime("now"), ?, ?, ?, ?, ?)';
+
           db.run(
-            'INSERT INTO Transactions (AssetID, TransactionDate, Quantity, PricePerUnit, TransactionType, ExchangeRateUSD_BRL) VALUES (?, datetime("now"), ?, ?, ?, ?)',
-            [assetID, Quantity, PricePerUnit, "Sell", ExchangeRateUSD_BRL],
+            insertQuery,
+            [assetID, Quantity, PricePerUnit, "Sell", ExchangeRateUSD_BRL, Info || null],  // Set Info to null if not provided
             (err) => {
               if (err) {
                 console.error(err.message);

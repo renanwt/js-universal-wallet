@@ -33,62 +33,6 @@
 			"response": []
 		},
 		{
-			"name": "Buy Asset",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"AssetName\": \"ISHARE SP500CI\",\r\n  \"AssetSymbol\": \"IVVB11\",\r\n  \"AssetTypeID\": 7,\r\n  \"Quantity\": 1,\r\n  \"PricePerUnit\": 348.85,\r\n  \"ExchangeRateUSD_BRL\": 5.43,\r\n  \"TransactionType\": \"Buy\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/buy-asset",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"buy-asset"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Sell Asset",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n  \"AssetSymbol\": \"CPLE11\",\r\n  \"Quantity\": 50,\r\n  \"PricePerUnit\": 20,\r\n  \"ExchangeRateUSD_BRL\": 5.43\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://localhost:3000/sell-asset",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"sell-asset"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Get Assets",
 			"request": {
 				"method": "GET",
@@ -147,6 +91,220 @@
 					"path": [
 						"asset-status",
 						"record"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get History",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/history/daily-totals",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"history",
+						"daily-totals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get History by Range",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/history?startDate=2024-01-01&endDate=2024-12-31",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"history"
+					],
+					"query": [
+						{
+							"key": "startDate",
+							"value": "2024-01-01"
+						},
+						{
+							"key": "endDate",
+							"value": "2024-12-31"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buy Asset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AssetSymbol\": \"Cash\",\r\n  \"AssetTypeID\": 8,\r\n  \"Quantity\": 536.6,\r\n  \"PricePerUnit\": 1.449,\r\n  \"ExchangeRateUSD_BRL\": 5.783\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/buy-asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"buy-asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Cash",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AssetSymbol\": \"BRL\",\r\n  \"AssetTypeID\": 8,\r\n  \"Quantity\": 1,\r\n  \"PricePerUnit\": 16700,\r\n  \"ExchangeRateUSD_BRL\": 6.05\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/buy-asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"buy-asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sell Asset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"AssetSymbol\": \"USDT\",\r\n  \"Quantity\": 579.88,\r\n  \"PricePerUnit\": 1,\r\n  \"ExchangeRateUSD_BRL\": 5.86,\r\n  \"Info\": \"USDT Vendido para realização das últimas 3 compras de ENA e BTC\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sell-asset",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sell-asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crypto Convertion",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"FromAssetSymbol\": \"USDT\",\n  \"ToAssetSymbol\": \"SOL\",\n  \"ConversionAmount\": 350,\n  \"ToAssetAmount\": 1,\n  \"TransactionDate\": \"2025-01-22 10:34:45\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/convert",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"convert"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "revert transaction",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/api/convert/revert/123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"convert",
+						"revert",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Asset Transactions",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:3000/transactions/SOL",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"transactions",
+						"SOL"
 					]
 				}
 			},

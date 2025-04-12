@@ -25,11 +25,36 @@ module.exports = (db) => {
     const ConversionRate = ToAssetAmount / ConversionAmount;
 
     try {
-      const exchangeRateResponse = await axios.get(
-        'https://query1.finance.yahoo.com/v8/finance/chart/USDBRL=X'
-      );
-      const exchangeRate =
-        exchangeRateResponse.data.chart.result[0].meta.regularMarketPrice;
+      let exchangeRate;
+      if (TransactionDate) {
+        const transactionTime = new Date(TransactionDate);
+        const timestamp = Math.floor(transactionTime.getTime() / 1000); // Timestamp UNIX
+        const oneHourAfter = new Date(transactionTime);
+        oneHourAfter.setHours(oneHourAfter.getHours() + 1); // Uma hora antes
+
+        try {
+          const chartData = await yahooFinance.chart('USDBRL=X', {
+            period1: timestamp, 
+            period2: Math.floor(oneHourAfter.getTime() / 1000),
+            interval: '1m',
+          });
+        
+          console.log('chartData:', chartData); // Debug para verificar a resposta
+        
+          if (chartData && chartData.timestamp && chartData.timestamp.length > 0) {
+            exchangeRate = chartData.close[chartData.close.length - 1];
+          } else {
+            console.warn('No exchange rate data found, using last available price.');
+            const exchangeRateResponse = await axios.get(
+              'https://query1.finance.yahoo.com/v8/finance/chart/USDBRL=X'
+            );
+            exchangeRate = exchangeRateResponse.data.chart.result[0].meta.regularMarketPrice;
+          }
+        } catch (error) {
+          console.error('Error fetching exchange rate:', error);
+          return res.status(500).send('Error fetching exchange rate data');
+        }
+      }        
 
       db.serialize(() => {
         db.run('BEGIN TRANSACTION;', (err) => {
