@@ -82,9 +82,3 @@ You can interact with the API using Postman or any other HTTP client.
 ## License 📜
 
 This project is licensed under the **GPL-3.0** License.
-
----
-
-## Acknowledgements 🤝
-
-Special thanks to all contributors and open-source projects that made this app possible. 🌟
