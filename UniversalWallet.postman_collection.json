@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "c66c592f-6ff2-43dd-ab21-699fe6afa681",
+		"_postman_id": "760b1aa5-bf9c-4f97-82f7-3342c7d04a7f",
 		"name": "UniversalWallet",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -28,7 +28,18 @@
 			"name": "Position",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/position-comparison",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"position-comparison"
+					]
+				}
 			},
 			"response": []
 		},

@@ -12,6 +12,7 @@ lerna-debug.log*
 
 # My personal info
 database.sqlite
+/Backup
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
