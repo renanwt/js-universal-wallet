@@ -1,4 +1,8 @@
-module.exports = (db, { assetService }) => {
+const getAssetServiceFactory = require('../services/getAssetService');
+
+module.exports = (() => {
+  const assetService = getAssetServiceFactory();
+
   return {
     async getAssets(req, res) {
       try {
@@ -11,4 +15,4 @@ module.exports = (db, { assetService }) => {
       }
     }
   };
-};
+})();

@@ -1,6 +1,14 @@
-module.exports = (db, { assetRepository, transactionRepository }) => {
+const { getDbConnection } = require('../utils/db');
+const assetRepositoryFactory = require('../repositories/assetRepository');
+const transactionRepositoryFactory = require('../repositories/transactionRepository');
+
+module.exports = () => {
   return {
     async buyAsset(assetData) {
+      const db = await getDbConnection();
+      const assetRepository = assetRepositoryFactory(db);
+      const transactionRepository = transactionRepositoryFactory(db);
+
       const { AssetName, AssetSymbol, AssetTypeID, Quantity, PricePerUnit, ExchangeRateUSD_BRL } = assetData;
 
       if (!AssetName || !AssetSymbol || !AssetTypeID || !Quantity || !PricePerUnit || ExchangeRateUSD_BRL == null) {
@@ -8,11 +16,9 @@ module.exports = (db, { assetRepository, transactionRepository }) => {
       }
 
       const Currency = [2, 3, 7, 8].includes(AssetTypeID) ? 'BRL' : 'USD';
-
       const existingAsset = await assetRepository.getAssetBySymbol(AssetSymbol);
 
       let assetId;
-
       if (existingAsset) {
         let newAmountInWallet = parseFloat(existingAsset.AmountInWallet + Quantity);
         let newAvgPrice = ((existingAsset.AvgPrice * existingAsset.AmountInWallet) + (PricePerUnit * Quantity)) / newAmountInWallet;
@@ -29,7 +35,6 @@ module.exports = (db, { assetRepository, transactionRepository }) => {
       }
 
       await transactionRepository.createTransaction(assetId, Quantity, PricePerUnit, "Buy", ExchangeRateUSD_BRL);
-
       return { message: "Asset purchased successfully", assetId };
     }
   };

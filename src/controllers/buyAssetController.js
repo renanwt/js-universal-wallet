@@ -1,7 +1,7 @@
-module.exports = (db) => {
-  const assetRepository = require('../repositories/assetRepository')(db);
-  const transactionRepository = require('../repositories/transactionRepository')(db);
-  const buyAssetService = require('../services/buyAssetService')(db, { assetRepository, transactionRepository });
+const buyAssetServiceFactory = require('../services/buyAssetService');
+
+module.exports = (() => {
+  const buyAssetService = buyAssetServiceFactory();
 
   return {
     async buyAsset(req, res) {
@@ -14,4 +14,4 @@ module.exports = (db) => {
       }
     }
   };
-};
+})();
