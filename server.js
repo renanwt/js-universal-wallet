@@ -4,7 +4,7 @@ const routes = require('./src/routes/routes');
 const app = express();
 app.use(express.json());
 
-app.use('/', routes); // Agora todas as rotas estão centralizadas
+app.use('/', routes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
