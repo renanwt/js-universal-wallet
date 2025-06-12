@@ -11,10 +11,6 @@ module.exports = () => {
 
       const { AssetName, AssetSymbol, AssetTypeID, Quantity, PricePerUnit, ExchangeRateUSD_BRL } = assetData;
 
-      if (!AssetName || !AssetSymbol || !AssetTypeID || !Quantity || !PricePerUnit || ExchangeRateUSD_BRL == null) {
-        throw new Error('Missing required fields');
-      }
-
       const Currency = [2, 3, 7, 8].includes(AssetTypeID) ? 'BRL' : 'USD';
       const existingAsset = await assetRepository.getAssetBySymbol(AssetSymbol);
 
