@@ -1,0 +1,11 @@
+services:
+  wallet-api:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_NAME: database.sqlite
+    volumes:
+      - ./database.sqlite:/app/database.sqlite
+    restart: unless-stopped
